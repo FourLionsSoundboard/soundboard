@@ -72,14 +72,14 @@ html, body {
    .random {
        background-color: rgb(67 64 244 / 37%);
    }
-   .random:hover {
-        background-color: rgb(67 64 244);
-   }
    .stop:hover {
        background-color: red;
    }
    .button:hover {
        background-color: white;
+   }
+   .random:hover {
+        background-color: rgb(67 64 244) !important;
    }
 a {
     cursor: pointer;
