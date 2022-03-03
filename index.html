@@ -1,0 +1,94 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Four Lions Soundboard</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+		<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="manifest" href="/manifest.json">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+		<meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+		<div class="wrapper">
+
+			<audio id="audio" src="soundboard/ak47.wav"></audio>
+
+			<span class="heading">Four Lions Soundboard</span>
+
+			<a class="stop" id='stopButton' style="display:none;">Stop sound</a>
+
+            <div id="buttons"></div>
+
+		</div>
+
+        <script src="./sounds.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script>
+			let activeid = 1;
+
+            $( document ).ready(function() {
+                const background = backgrounds[Math.floor(Math.random()*backgrounds.length)];
+                $('html').css('background-image',`url('./wallpapers/${background}')`)
+
+                soundFiles.forEach((file, counter) => {
+                    const name = file.replaceAll('.wav', '').replaceAll('_', ' '); 
+                    const fileRoute = file.replace (/^/,'./soundboard/')
+                    $('#buttons').append(`<a class="button" onclick="changeSource(${counter});"><input type="hidden" value="${fileRoute}" id="${counter}" />${name}</a>`)
+                });
+            });
+
+			document.getElementById('stopButton').onclick = function() {
+			  var sounds = document.getElementsByTagName('audio');
+			  for(i=0; i<sounds.length; i++) sounds[i].pause();
+			};
+
+			function changeSource(id) {
+				var element = document.getElementById(activeid);
+				element.parentElement.classList.remove("active");
+				var audio = document.getElementById(id);
+				activeid = id;
+				console.log(id);
+				var player = document.getElementById('audio');
+				var song = audio.value;
+				player.src = song;
+				player.load();
+				player.play();
+				document.getElementById('stopButton').style.display = "block";
+				//document.getElementById(id).classList.add("active");
+
+				var element = document.getElementById(id);
+				element.parentElement.classList.add("active");
+			};
+
+            $('#audio').on('playing', function() {
+                $('#stopButton').show()
+            });
+            $('#audio').on('ended', function() {
+                $('#stopButton').hide()
+                $('.active').removeClass('active')
+            });
+		</script>
+
+    </body>
+</html>
