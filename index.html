@@ -37,6 +37,7 @@
 			<span class="heading">Four Lions Soundboard</span>
 
 			<a class="stop" id='stopButton' style="display:none;">Stop sound</a>
+			<a class="button" id='randomButton'>Random</a>
 
             <div id="buttons"></div>
 
@@ -81,6 +82,11 @@
 				element.parentElement.classList.add("active");
 			};
 
+			function randomClip() {
+                const clip = Math.floor(Math.random() * (soundFiles.length - 0 + 1) + 0);
+				changeSource(clip);
+			}
+
             $('#audio').on('playing', function() {
                 $('#stopButton').show()
             });
@@ -88,6 +94,8 @@
                 $('#stopButton').hide()
                 $('.active').removeClass('active')
             });
+
+			$('#randomButton').on('click', randomClip());
 		</script>
 
     </body>
