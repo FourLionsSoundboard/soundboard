@@ -82,8 +82,12 @@
 				element.parentElement.classList.add("active");
 			};
 
+			function randomIntFromInterval(min, max) { // min and max included 
+				return Math.floor(Math.random() * (max - min + 1) + min)
+			}
+			
 			function randomClip() {
-                const clip = Math.floor(Math.random() * (soundFiles.length - 0 + 1) + 0);
+                const clip = randomIntFromInterval(0, (soundFiles.length - 1))
 				changeSource(clip);
 				$('#randomButton').text(soundFiles[clip].replaceAll('.wav', '').replaceAll('_', ' '));
 			}
