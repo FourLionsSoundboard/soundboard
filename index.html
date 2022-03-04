@@ -89,7 +89,7 @@
 			function randomClip() {
                 const clip = randomIntFromInterval(0, (soundFiles.length - 1))
 				changeSource(clip);
-				$('#randomButton').text(soundFiles[clip].replaceAll('.wav', '').replaceAll('_', ' '));
+				$('#randomButton').text(soundFiles[clip].replaceAll('.wav', '').replaceAll('_', ' ')).addClass('playing');
 			}
 
             $('#audio').on('playing', function() {
@@ -98,7 +98,7 @@
             $('#audio').on('ended', function() {
                 $('#stopButton').hide()
                 $('.active').removeClass('active')
-				$('#randomButton').text('Random')
+				$('#randomButton').text('Random').removeClass('playing')
             });
 
 			$('#randomButton').on('click', randomClip());
